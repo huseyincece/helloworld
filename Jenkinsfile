@@ -1,10 +1,3 @@
-def remote = [:]
-remote.name = 'k8s-master-1'
-remote.host = '192.168.1.35'
-remote.user = 'k8s-master-1'
-remote.password = 'k8s-master-1'
-remote.allowAnyHosts = true
-
 pipeline {
     agent any
 
@@ -89,15 +82,22 @@ pipeline {
             }
         }
 
-        stage("SSH Into k8s and deployment") {
-            steps {
-                script {
-                    // You should access the 'remote' variable defined at the top level
-                }
-                {
-                    sshPut remote: remote, from: 'deployment.yml', into: '.'
-                }
+        stage("SSH Into k8s Server") {
+            def remote = [:]
+            remote.name = 'k8s-master-1'
+            remote.host = '192.168.1.35'
+            remote.user = 'k8s-master-1'
+            remote.password = 'redhat1'
+            remote.allowAnyHosts = true
+
+            stage('Put k8s-spring-boot-deployment.yml onto k8smaster') {
+                sshPut remote: remote, from: 'k8s-spring-boot-deployment.yml', into: '.'
             }
-        }
+
+            stage('Deploy spring boot') {
+                sshCommand remote: remote, command: "kubectl apply -f k8s-spring-boot-deployment.yml"
+            }
+    }
+
     }
 }
