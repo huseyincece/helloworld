@@ -3,7 +3,7 @@
         "Hello": {
             "isDefault": true,
             "runWith": "host-with-password",
-            "name": "Hello",
+            "name": "HelloWorld",
 
         }
     },

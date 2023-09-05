@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     git credentialsId: 'GitHub',
-                        url: 'https://github.com/huseyincece/helloworld.git',
+                        url: 'https://github.com/huseyincece/jenkins-ci-cd.git',
                         branch: 'main'
                 }
             }
