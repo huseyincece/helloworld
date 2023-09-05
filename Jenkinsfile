@@ -1,3 +1,10 @@
+def remote = [:]
+remote.name = 'k8s-master-1'
+remote.host = '192.168.1.35'
+remote.user = 'k8s-master-1'
+remote.password = 'k8s-master-1'
+remote.allowAnyHosts = true
+
 pipeline {
     agent any
 
@@ -85,19 +92,9 @@ pipeline {
         stage("SSH Into k8s and deployment") {
             steps {
                 script {
-                    def remote = [:]
-                    remote.name = 'k8s-master-1'
-                    remote.host = '192.168.1.35'
-                    remote.user = 'k8s-master-1'
-                    remote.password = 'k8s-master-1'
-                    remote.allowAnyHosts = true
+                    // You should access the 'remote' variable defined at the top level
                 }
-            }
-        }
-
-        stage("Put deployment.yaml onto k8s-master-1") {
-            steps {
-                script {
+                {
                     sshPut remote: remote, from: 'deployment.yml', into: '.'
                 }
             }
