@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: flask-app-container
-        image: huseyincece/helloworld-app:17
+        image: huseyincece/helloworld-app:18
         resources:
           limits:
             memory: "128Mi"
