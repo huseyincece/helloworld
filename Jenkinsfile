@@ -84,12 +84,19 @@ pipeline {
             }
         }
         stage("SSH Into k8s Server") {
-            def remote = [:]
-            remote.name = 'k8s-master-1'
-            remote.host = '192.168.1.35'
-            remote.user = 'k8s-master-1'
-            remote.password = 'k8s-master-1'
-            remote.allowAnyHosts = true
+            steps{
+
+                script{
+                    def remote = [:]
+                    remote.name = 'k8s-master-1'
+                    remote.host = '192.168.1.35'
+                    remote.user = 'k8s-master-1'
+                    remote.password = 'k8s-master-1'
+                    remote.allowAnyHosts = true
+
+                }
+            }
+            
         }
        
     }
