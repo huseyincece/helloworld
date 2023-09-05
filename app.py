@@ -30,7 +30,7 @@ def health():
 
 @app.route("/")
 def home():
-    return "Hi Berkay Hocam"
+    return "Hello World - Huawei"
    
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int("5000"), debug=True)
