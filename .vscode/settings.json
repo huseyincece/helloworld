@@ -1,0 +1,22 @@
+{
+    "jenkins-runner.jobs": {
+        "Hello": {
+            "isDefault": true,
+            "runWith": "host-with-password",
+            "name": "Hello",
+
+        }
+    },
+
+    "jenkins-runner.hostConfigs": {
+        "host-with-password": {
+            "url": "http://192.168.1.38:8080",
+            "user": "server3",
+            "password": "redhat1",
+            "useCrumbIssuer": true,
+
+
+        }
+    }
+
+}
