@@ -12,9 +12,7 @@ pipeline {
     stages {
         stage('Cleanup workspace') {
             steps {
-                script {
-                    cleanWs()
-                }
+                cleanWs()
             }
         }
 
@@ -67,7 +65,7 @@ pipeline {
             }
         }
 
-        stage('Push the changed deoployment file to Git'){
+        stage('Push the changed deployment file to Git'){
 
             steps{
                 script{
@@ -83,33 +81,26 @@ pipeline {
                 }
             }
         }
-        stage("SSH Into k8s Server") {
-            steps{
 
-                script{
+        stage("SSH Into k8s and deployment") {
+            steps {
+                script {
                     def remote = [:]
                     remote.name = 'k8s-master-1'
                     remote.host = '192.168.1.35'
                     remote.user = 'k8s-master-1'
                     remote.password = 'k8s-master-1'
                     remote.allowAnyHosts = true
-
                 }
             }
-            
         }
 
         stage("Put deployment.yaml onto k8s-master-1") {
-            steps{
-
-                script{
-                    
-                     sshPut remote: remote, from: 'k8s-spring-boot-deployment.yml', into: '.'
-
+            steps {
+                script {
+                    sshPut remote: remote, from: 'deployment.yml', into: '.'
                 }
             }
-            
         }
-       
     }
 }
