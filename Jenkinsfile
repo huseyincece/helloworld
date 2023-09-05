@@ -6,7 +6,7 @@ pipeline {
         APP_NAME = "helloworld-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
-        REGISTRY_CREDS = 'DockerHub'
+        REGISTRY_CREDS = 'DuckerHub'
     }
 
     stages {
