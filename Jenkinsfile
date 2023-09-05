@@ -53,7 +53,6 @@ pipeline {
         }
 
         stage('Updating Kubernetes deployment file') {
-
             steps {
                 script {
                     sh """
@@ -66,7 +65,6 @@ pipeline {
         }
 
         stage('Push the changed deployment file to Git'){
-
             steps{
                 script{
                     sh """
@@ -83,21 +81,22 @@ pipeline {
         }
 
         stage("SSH Into k8s Server") {
-            def remote = [:]
-            remote.name = 'k8s-master-1'
-            remote.host = '192.168.1.35'
-            remote.user = 'k8s-master-1'
-            remote.password = 'redhat1'
-            remote.allowAnyHosts = true
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = 'k8s-master-1'
+                    remote.host = '192.168.1.35'
+                    remote.user = 'k8s-master-1'
+                    remote.password = 'redhat1'
+                    remote.allowAnyHosts = true
 
-            stage('Put k8s-spring-boot-deployment.yml onto k8smaster') {
-                sshPut remote: remote, from: 'k8s-spring-boot-deployment.yml', into: '.'
+                    // Put deployment.yml onto k8smaster
+                    sshPut remote: remote, from: 'deployment.yml', into: '.'
+
+                    // Deploy app
+                    sshCommand remote: remote, command: "kubectl apply -f deployment.yml"
+                }
             }
-
-            stage('Deploy spring boot') {
-                sshCommand remote: remote, command: "kubectl apply -f k8s-spring-boot-deployment.yml"
-            }
-    }
-
+        }
     }
 }
